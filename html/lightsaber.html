@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Light Saber</title>
+    <link rel="stylesheet" href="../css/lightsaber-styles.css">
+</head>
+<body>
+<canvas id="canvas1"></canvas>
+
+<script>
+    navigator.mediaDevices.getUserMedia({video:true})
+    .then(rawData => {
+      const video = document.createElement('video');
+      video.srcObject = rawData;
+      video.play();
+      video.onloadeddata = () => {
+        const canvas = document.getElementById('canvas1');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+        const lightSaberEffect = new LightSaberEffect(canvas,video);
+      }
+    })
+      .catch(err => alert(err));
+</script>
+
+
+<script src="../js/light-saber.js"></script>
+<script src="../js/utils.js"></script>
+<script src="../js/lightsaber-script.js"></script>
+</body>
+</html>
